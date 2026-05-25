@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date Request.exe</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .screen {
+      min-height: 100dvh;
+      width: 100%;
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    #buttonArea {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #noBtn {
+      position: absolute;
+      transition: top 0.12s ease, left 0.12s ease;
+      z-index: 30;
+    }
+
+    img {
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-[#07070a] text-white font-sans">
+
+  <!-- SCREEN 1 -->
+  <section id="screen1" class="screen active items-center justify-center p-4">
+    <div class="glass w-full max-w-sm rounded-3xl p-5 text-center shadow-2xl">
+
+      <img
+        src="https://i.imgflip.com/4/2wifvo.jpg"
+        alt="Funny cat meme"
+        class="w-full h-56 object-cover rounded-2xl mb-5"
+      />
+
+      <p class="text-xs uppercase tracking-[0.25em] text-zinc-400 mb-2">
+        very serious question
+      </p>
+
+      <h1 class="text-3xl font-black leading-tight mb-3">
+        Will you go on a date with me? 🥺👉👈
+      </h1>
+
+      <p class="text-zinc-400 text-sm mb-6">
+        Choose wisely. My confidence is already buffering.
+      </p>
+
+      <div id="buttonArea" class="relative h-32 w-full rounded-2xl border border-zinc-800 bg-black/20">
+
+        <button
+          id="yesBtn"
+          class="absolute left-6 top-10 bg-emerald-400 text-black font-black px-8 py-3 rounded-2xl active:scale-95 transition shadow-lg shadow-emerald-400/20"
+        >
+          YES 😌
+        </button>
+
+        <button
+          id="noBtn"
+          class="right-6 top-10 bg-red-500 text-white font-black px-8 py-3 rounded-2xl shadow-lg shadow-red-500/20"
+        >
+          NO 🤡
+        </button>
+
+      </div>
+
+      <p class="text-[11px] text-zinc-500 mt-4">
+        The no button has chosen violence.
+      </p>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 -->
+  <section id="screen2" class="screen items-center justify-center p-4">
+    <div class="glass w-full max-w-sm rounded-3xl p-5 text-center shadow-2xl">
+
+      <img
+        src="https://media.giphy.com/media/3oKIPwoeGErMmaI43S/giphy.gif"
+        alt="Spongebob shocked gif"
+        class="w-full h-56 object-cover rounded-2xl mb-5"
+      />
+
+      <h2 class="text-2xl font-black leading-tight mb-3">
+        WAIT... YOU ACTUALLY SAID YES?! 😂
+      </h2>
+
+      <p class="text-zinc-400 text-sm mb-6">
+        My brain just blue-screened. Pick the date before I start overthinking.
+      </p>
+
+      <label class="block text-left text-sm text-zinc-300 mb-2">
+        Date & Time
+      </label>
+
+      <select
+        id="dateSelect"
+        class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-4 py-4 text-white outline-none mb-5"
+      >
+        <option value="">Pick one before I panic</option>
+        <option>Friday — 6:00 PM</option>
+        <option>Saturday — 5:00 PM</option>
+        <option>Sunday — 4:00 PM</option>
+        <option>Tonight — risky but iconic</option>
+      </select>
+
+      <button
+        id="goVenueBtn"
+        class="w-full bg-white text-black font-black py-4 rounded-2xl active:scale-95 transition disabled:opacity-40 disabled:active:scale-100"
+        disabled
+      >
+        Continue 😭
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 -->
+  <section id="screen3" class="screen items-center justify-center p-4">
+    <div class="glass w-full max-w-sm rounded-3xl p-5 text-center shadow-2xl">
+
+      <p class="text-xs uppercase tracking-[0.25em] text-zinc-400 mb-2">
+        mission location
+      </p>
+
+      <h2 class="text-2xl font-black mb-3">
+        Where are we pretending to be normal?
+      </h2>
+
+      <p class="text-zinc-400 text-sm mb-6">
+        Pick a place. I will act chill. Probably.
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <button class="venue bg-zinc-900 border border-zinc-700 rounded-2xl p-5 font-bold active:scale-95 transition" data-venue="Cafe ☕️">
+          Cafe ☕️
+        </button>
+
+        <button class="venue bg-zinc-900 border border-zinc-700 rounded-2xl p-5 font-bold active:scale-95 transition" data-venue="Park 🌳">
+          Park 🌳
+        </button>
+
+        <button class="venue bg-zinc-900 border border-zinc-700 rounded-2xl p-5 font-bold active:scale-95 transition" data-venue="Restaurant 🍕">
+          Restaurant 🍕
+        </button>
+
+        <button class="venue bg-zinc-900 border border-zinc-700 rounded-2xl p-5 font-bold active:scale-95 transition" data-venue="Surprise 🔮">
+          Surprise 🔮
+        </button>
+      </div>
+
+      <button
+        id="finalBtn"
+        class="w-full bg-violet-400 text-black font-black py-4 rounded-2xl active:scale-95 transition disabled:opacity-40 disabled:active:scale-100"
+        disabled
+      >
+        Lock it in 🚀
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 -->
+  <section id="screen4" class="screen items-center justify-center p-4">
+    <div class="glass w-full max-w-sm rounded-3xl p-5 text-center shadow-2xl">
+
+      <img
+        src="https://media.giphy.com/media/TIGP3k4gNAqvza2KJK/giphy.gif"
+        alt="Shrek meme gif"
+        class="w-full h-52 object-cover rounded-2xl mb-5"
+      />
+
+      <h2 class="text-2xl font-black leading-tight mb-3">
+        Glad you didn't say no.
+      </h2>
+
+      <p class="text-zinc-300 text-sm mb-6">
+        Be ready, I'm coming to get you! 🚗💨
+      </p>
+
+      <div class="bg-white text-black rounded-2xl p-5 text-left shadow-xl">
+        <div class="text-center border-b border-zinc-300 pb-3 mb-4">
+          <p class="font-black text-lg">DATE RECEIPT</p>
+          <p class="text-xs text-zinc-500">No refunds. No escape.</p>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between gap-4">
+            <span class="text-zinc-500">Date & Time</span>
+            <span id="receiptDate" class="font-bold text-right"></span>
+          </div>
+
+          <div class="flex justify-between gap-4">
+            <span class="text-zinc-500">Venue</span>
+            <span id="receiptVenue" class="font-bold text-right"></span>
+          </div>
+
+          <div class="flex justify-between gap-4">
+            <span class="text-zinc-500">Mood</span>
+            <span class="font-bold text-right">Suspiciously happy</span>
+          </div>
+        </div>
+
+        <div class="border-t border-zinc-300 mt-4 pt-4 text-center">
+          <p class="text-xs text-zinc-500">
+            Paid with emotional damage 💳
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const screens = {
+      one: document.getElementById("screen1"),
+      two: document.getElementById("screen2"),
+      three: document.getElementById("screen3"),
+      four: document.getElementById("screen4")
+    };
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const buttonArea = document.getElementById("buttonArea");
+
+    const dateSelect = document.getElementById("dateSelect");
+    const goVenueBtn = document.getElementById("goVenueBtn");
+    const finalBtn = document.getElementById("finalBtn");
+
+    const receiptDate = document.getElementById("receiptDate");
+    const receiptVenue = document.getElementById("receiptVenue");
+
+    let selectedDate = "";
+    let selectedVenue = "";
+
+    function showScreen(screen) {
+      Object.values(screens).forEach(section => {
+        section.classList.remove("active");
+      });
+
+      screen.classList.add("active");
+    }
+
+    function moveNoButton() {
+      const areaWidth = buttonArea.clientWidth;
+      const areaHeight = buttonArea.clientHeight;
+
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+
+      const maxX = areaWidth - buttonWidth;
+      const maxY = areaHeight - buttonHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+      noBtn.style.right = "auto";
+    }
+
+    function startNoButtonPosition() {
+      noBtn.style.left = "190px";
+      noBtn.style.top = "40px";
+      noBtn.style.right = "auto";
+    }
+
+    yesBtn.addEventListener("click", () => {
+      showScreen(screens.two);
+    });
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    noBtn.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    dateSelect.addEventListener("change", () => {
+      selectedDate = dateSelect.value;
+      goVenueBtn.disabled = selectedDate === "";
+    });
+
+    goVenueBtn.addEventListener("click", () => {
+      showScreen(screens.three);
+    });
+
+    document.querySelectorAll(".venue").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".venue").forEach(item => {
+          item.classList.remove("bg-violet-400", "text-black", "border-violet-300");
+          item.classList.add("bg-zinc-900", "border-zinc-700");
+        });
+
+        button.classList.remove("bg-zinc-900", "border-zinc-700");
+        button.classList.add("bg-violet-400", "text-black", "border-violet-300");
+
+        selectedVenue = button.dataset.venue;
+        finalBtn.disabled = false;
+      });
+    });
+
+    finalBtn.addEventListener("click", () => {
+      receiptDate.textContent = selectedDate;
+      receiptVenue.textContent = selectedVenue;
+      showScreen(screens.four);
+    });
+
+    window.addEventListener("load", startNoButtonPosition);
+    window.addEventListener("resize", startNoButtonPosition);
+  </script>
+
+</body>
+</html>
